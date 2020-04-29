@@ -26,7 +26,7 @@ const game = {
     ball.reset(
       canvas.getWidth() / 2,
       canvas.getHeight() / 2,
-      10/16,
+      6/16,
       5/16
     )
   },

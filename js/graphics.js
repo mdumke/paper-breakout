@@ -2,7 +2,7 @@
 
 const graphics = {
   drawBall: () => {
-    canvas.drawImage(images.ball, ball.x, ball.y)
+    canvas.drawImage(images.ball, ball.x, ball.y, ball.angle)
   },
 
   drawGame: () => {
