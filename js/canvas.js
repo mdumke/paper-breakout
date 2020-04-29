@@ -3,17 +3,11 @@
 const canvas = {
   el: null,
   ctx: null,
-
-  getWidth: () => {
-    return canvas.el.width
-  },
-
-  getHeight: () => {
-    return canvas.el.height
-  },
+  width: null,
+  height: null,
 
   clear: () => {
-    canvas.ctx.clearRect(0, 0, canvas.getWidth(), canvas.getHeight())
+    canvas.ctx.clearRect(0, 0, canvas.width, canvas.height)
   },
 
   drawText: (text, x, y, color, size, fontFamily) => {
@@ -34,5 +28,7 @@ const canvas = {
     const element = document.querySelector('#canvas')
     canvas.el = element
     canvas.ctx = element.getContext('2d')
+    canvas.width = canvas.el.width
+    canvas.height = canvas.el.height
   }
 }

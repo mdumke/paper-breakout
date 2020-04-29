@@ -4,7 +4,8 @@ const images = {
   basePath: 'assets/images',
 
   list: [
-    { name: 'ball', fileName: 'ball.png' }
+    { name: 'ball', fileName: 'ball.png' },
+    { name: 'paddle', fileName: 'paddle.png' }
   ],
 
   load: () => {

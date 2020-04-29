@@ -36,8 +36,25 @@ const controls = {
     }
   },
 
+  // cheats
+  handleMouseMove: evt => {
+    const rect = canvas.el.getBoundingClientRect()
+    const root = document.documentElement
+    const x = evt.clientX - rect.left - root.scrollLeft
+    const y = evt.clientY - rect.top - root.scrollTop
+    cheats.x = x
+    cheats.y = y
+    ball.x = x
+    ball.y = y
+    ball.speedX = 0.1
+    ball.speedY = 0.1
+  },
+
   init: () => {
     document.addEventListener('keydown', controls.handleKeyDown)
     document.addEventListener('keyup', controls.handleKeyUp)
+
+    // cheats
+    //canvas.el.addEventListener('mousemove', controls.handleMouseMove)
   }
 }
