@@ -42,12 +42,13 @@ const controls = {
     const root = document.documentElement
     const x = evt.clientX - rect.left - root.scrollLeft
     const y = evt.clientY - rect.top - root.scrollTop
-    cheats.x = x
-    cheats.y = y
+    const { col, row } = bricks.positionToColRow({ x, y })
+    cheats.x = col
+    cheats.y = row
     ball.x = x
     ball.y = y
-    ball.speedX = 0.1
-    ball.speedY = 0.1
+    ball.speedX = 0.08
+    ball.speedY = -0.08
   },
 
   init: () => {
@@ -55,6 +56,6 @@ const controls = {
     document.addEventListener('keyup', controls.handleKeyUp)
 
     // cheats
-    //canvas.el.addEventListener('mousemove', controls.handleMouseMove)
+    canvas.el.addEventListener('mousemove', controls.handleMouseMove)
   }
 }

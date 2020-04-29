@@ -16,6 +16,13 @@ const ball = {
     )
   },
 
+  touchesBrick: () => {
+    const i = bricks.positionToIndex(ball)
+    const ballOnField = ball.x > 0 && ball.x < canvas.width && ball.y > 0
+    const brickExists = i < bricks.pattern.length && bricks.pattern[i] !== 0
+    return ballOnField && brickExists
+  },
+
   update: deltaT => {
     if (ball.x < 0) {
       ball.bounceOffLeftWall()
@@ -29,11 +36,45 @@ const ball = {
     if (ball.touchesPaddle()) {
       ball.bounceOffPaddle()
     }
+    if (ball.touchesBrick()) {
+      bricks.removeByPosition(ball)
+      ball.bounceOffBrick(deltaT)
+    }
     if (ball.y > canvas.height) {
       return game.ballLost()
     }
 
     ball.advance(deltaT)
+  },
+
+  bounceOffBrick: prevDeltaT => {
+    const { col, row } = bricks.positionToColRow(ball)
+
+    const previous = bricks.positionToColRow({
+      x: ball.x - prevDeltaT * ball.speedX,
+      y: ball.y - prevDeltaT * ball.speedY
+    })
+
+    const colChange = previous.col !== col
+    const rowChange = previous.row !== row
+
+    if (colChange && bricks.noBrickAt({ row, col: previous.col })) {
+      ball.speedX *= -1
+    }
+
+    if (rowChange && bricks.noBrickAt({ row: previous.row, col })) {
+      ball.speedY *= -1
+    }
+
+    if (colChange && rowChange) {
+      const adjacentInRow = bricks.colRowToIndex({ row, col: previous.col })
+      const adjacentInCol = bricks.colRowToIndex({ row: previous.row, col })
+
+      if (bricks[adjacentInRow] && bricks[adjacentInCol]) {
+        ball.speedX *= -1
+        ball.speedY *= -1
+      }
+    }
   },
 
   bounceOffLeftWall: () => {

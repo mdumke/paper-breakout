@@ -3,7 +3,7 @@
 const config = {
   ball: {
     initialSpeedX: 0.1,
-    initialSpeedY: 0.5,
+    initialSpeedY: 0.45,
     rotation: 0.002
   },
 
@@ -11,7 +11,14 @@ const config = {
     margin: 50,
     width: 96,
     height: 30,
-    speed: 0.4,
+    speed: 0.5,
     distAccel: 0.015
+  },
+
+  bricks: {
+    width: 100,
+    height: 40,
+    nCols: 8,
+    nRows: 4,
   }
 }

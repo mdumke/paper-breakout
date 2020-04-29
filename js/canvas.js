@@ -24,6 +24,11 @@ const canvas = {
     canvas.ctx.restore()
   },
 
+  drawRect: (x, y, w, h, color) => {
+    canvas.ctx.fillStyle = color
+    canvas.ctx.fillRect(x, y, w, h)
+  },
+
   init: () => {
     const element = document.querySelector('#canvas')
     canvas.el = element
