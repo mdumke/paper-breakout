@@ -47,8 +47,8 @@ const controls = {
     cheats.y = row
     ball.x = x
     ball.y = y
-    ball.speedX = 0.08
-    ball.speedY = -0.08
+    ball.speedX = 0.1
+    ball.speedY = 0.1
   },
 
   init: () => {

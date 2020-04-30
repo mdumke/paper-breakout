@@ -11,14 +11,21 @@ const config = {
     margin: 50,
     width: 96,
     height: 30,
-    speed: 0.5,
-    distAccel: 0.015
+    speed: 0.55,
+    distAccel: 0.012
   },
 
   bricks: {
-    width: 100,
-    height: 40,
-    nCols: 8,
-    nRows: 4,
+    width: 80,
+    height: 54,
+    nCols: 10,
+    nRows: 5,
+  },
+
+  field: {
+    x: 220,
+    y: 126,
+    width: 800,
+    height: 600,
   }
 }

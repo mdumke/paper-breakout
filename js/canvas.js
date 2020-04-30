@@ -24,9 +24,11 @@ const canvas = {
     canvas.ctx.restore()
   },
 
-  drawRect: (x, y, w, h, color) => {
+  drawRect: (x, y, w, h, color, alpha) => {
+    canvas.ctx.globalAlpha = alpha || 1
     canvas.ctx.fillStyle = color
     canvas.ctx.fillRect(x, y, w, h)
+    canvas.ctx.globalAlpha = 1.0
   },
 
   init: () => {

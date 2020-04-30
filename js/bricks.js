@@ -2,10 +2,11 @@
 
 const bricks = {
   pattern: [
-    0, 0, 0, 0, 0, 0, 0, 0,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 0, 1, 1, 0, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ],
 
   removeByIndex: i => {
@@ -27,8 +28,8 @@ const bricks = {
   },
 
   positionToColRow: ({ x, y }) => ({
-    col: Math.floor(x / config.bricks.width),
-    row: Math.floor(y / config.bricks.height)
+    col: Math.floor((x - field.getLeft()) / config.bricks.width),
+    row: Math.floor((y - field.getTop()) / config.bricks.height)
   }),
 
   positionToIndex: ({ x, y }) =>

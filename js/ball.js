@@ -16,21 +16,26 @@ const ball = {
     )
   },
 
+  isOnField: () => (
+    ball.x > field.getLeft() &&
+    ball.x < field.getRight() &&
+    ball.y > field.getTop()
+  ),
+
   touchesBrick: () => {
     const i = bricks.positionToIndex(ball)
-    const ballOnField = ball.x > 0 && ball.x < canvas.width && ball.y > 0
     const brickExists = i < bricks.pattern.length && bricks.pattern[i] !== 0
-    return ballOnField && brickExists
+    return ball.isOnField() && brickExists
   },
 
   update: deltaT => {
-    if (ball.x < 0) {
+    if (ball.x < field.getLeft()) {
       ball.bounceOffLeftWall()
     }
-    if (ball.x > canvas.width) {
+    if (ball.x > field.getRight()) {
       ball.bounceOffRightWall()
     }
-    if (ball.y < 0) {
+    if (ball.y < field.getTop()) {
       ball.bounceOffCeiling()
     }
     if (ball.touchesPaddle()) {
@@ -49,32 +54,33 @@ const ball = {
 
   bounceOffBrick: prevDeltaT => {
     const { col, row } = bricks.positionToColRow(ball)
-
-    const previous = bricks.positionToColRow({
-      x: ball.x - prevDeltaT * ball.speedX,
-      y: ball.y - prevDeltaT * ball.speedY
-    })
+    const previous = ball.getPreviousPosition(prevDeltaT)
 
     const colChange = previous.col !== col
     const rowChange = previous.row !== row
+    const adjCol = { row, col: previous.col }
+    const adjRow = { row: previous.row, col }
 
-    if (colChange && bricks.noBrickAt({ row, col: previous.col })) {
+    if (colChange && bricks.noBrickAt(adjCol)) {
       ball.speedX *= -1
     }
 
-    if (rowChange && bricks.noBrickAt({ row: previous.row, col })) {
+    if (rowChange && bricks.noBrickAt(adjRow)) {
       ball.speedY *= -1
     }
 
-    if (colChange && rowChange) {
-      const adjacentInRow = bricks.colRowToIndex({ row, col: previous.col })
-      const adjacentInCol = bricks.colRowToIndex({ row: previous.row, col })
-
-      if (bricks[adjacentInRow] && bricks[adjacentInCol]) {
-        ball.speedX *= -1
-        ball.speedY *= -1
-      }
+    if (colChange && rowChange &&
+        bricks.brickAt(adjRow) && bricks.brickAt(adjCol)) {
+      ball.speedX *= -1
+      ball.speedY *= -1
     }
+  },
+
+  getPreviousPosition: prevDeltaT => {
+    return bricks.positionToColRow({
+      x: ball.x - prevDeltaT * ball.speedX,
+      y: ball.y - prevDeltaT * ball.speedY
+    })
   },
 
   bounceOffLeftWall: () => {

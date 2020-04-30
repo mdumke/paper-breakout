@@ -9,18 +9,16 @@ const graphics = {
     canvas.drawImage(
       images.paddle,
       paddle.x,
-      canvas.height - config.paddle.margin,
+      field.getBottom() - config.paddle.margin,
       Math.PI * 3 / 2
     )
   },
 
   drawBrick: (col, row) => {
-    canvas.drawRect(
-      col * config.bricks.width,
-      row * config.bricks.height,
-      config.bricks.width - 1,
-      config.bricks.height - 1,
-      'lightblue'
+    canvas.drawImage(
+      images.brick1,
+      field.getLeft() + col * config.bricks.width + config.bricks.width / 2,
+      field.getTop() + row * config.bricks.height + config.bricks.height / 2
     )
   },
 
@@ -31,6 +29,10 @@ const graphics = {
         graphics.drawBrick(col, row)
       }
     }
+  },
+
+  drawBackground: () => {
+    canvas.drawRect(field.x, field.y, field.width, field.height, 'black', 0.2)
   },
 
   drawCheats: () => {

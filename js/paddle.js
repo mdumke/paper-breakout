@@ -5,10 +5,13 @@ const paddle = {
   y: null,
 
   update: deltaT => {
-    if (controls.moveRight && paddle.x < canvas.width) {
+    const canMoveRight = paddle.x < field.getRight() - config.paddle.width / 2
+    const canMoveLeft = paddle.x > field.getLeft() + config.paddle.width / 2
+
+    if (controls.moveRight && canMoveRight) {
       paddle.x += deltaT * config.paddle.speed
     }
-    if (controls.moveLeft && paddle.x > 0) {
+    if (controls.moveLeft && canMoveLeft) {
       paddle.x -= deltaT * config.paddle.speed
     }
   },
@@ -18,6 +21,6 @@ const paddle = {
   },
 
   init: () => {
-    paddle.y = canvas.height - config.paddle.margin
+    paddle.y = field.getBottom() - config.paddle.margin
   }
 }

@@ -5,7 +5,8 @@ const images = {
 
   list: [
     { name: 'ball', fileName: 'ball.png' },
-    { name: 'paddle', fileName: 'paddle.png' }
+    { name: 'paddle', fileName: 'paddle.png' },
+    { name: 'brick1', fileName: 'brick1.png' }
   ],
 
   load: () => {
