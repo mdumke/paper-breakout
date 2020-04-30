@@ -14,9 +14,9 @@ const graphics = {
     )
   },
 
-  drawBrick: (col, row) => {
+  drawBrick: (col, row, type) => {
     canvas.drawImage(
-      images.brick1,
+      images[`brick${type}`],
       field.getLeft() + col * config.bricks.width + config.bricks.width / 2,
       field.getTop() + row * config.bricks.height + config.bricks.height / 2
     )
@@ -24,15 +24,11 @@ const graphics = {
 
   drawBricks: () => {
     for (let i = 0; i < bricks.pattern.length; i++) {
-      if (bricks.pattern[i] === 1) {
+      if (bricks.pattern[i] !== 0) {
         const { col, row } = bricks.indexToColRow(i)
-        graphics.drawBrick(col, row)
+        graphics.drawBrick(col, row, bricks.pattern[i])
       }
     }
-  },
-
-  drawBackground: () => {
-    canvas.drawRect(field.x, field.y, field.width, field.height, 'black', 0.2)
   },
 
   drawCheats: () => {

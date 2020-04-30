@@ -12,7 +12,7 @@ const config = {
     width: 96,
     height: 30,
     speed: 0.55,
-    distAccel: 0.012
+    distAccel: 0.01
   },
 
   bricks: {
