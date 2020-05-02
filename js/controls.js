@@ -21,6 +21,7 @@ const controls = {
 
     if (e.keyCode === SPACE) {
       e.preventDefault()
+      game.spacebarPressed()
     }
   },
 

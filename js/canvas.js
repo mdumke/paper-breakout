@@ -5,6 +5,7 @@ const canvas = {
   ctx: null,
   width: null,
   height: null,
+  wrapper: null,
 
   clear: () => {
     canvas.ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -31,7 +32,13 @@ const canvas = {
     canvas.ctx.globalAlpha = 1.0
   },
 
+//   setBackgroundImage: img => {
+//     const url = `url('assets/images/${img.fileName}')`
+//     canvas.wrapper.style.backgroundImage = url
+//   },
+
   init: () => {
+    canvas.wrapper = document.querySelector('.canvas-wrapper')
     const element = document.querySelector('#canvas')
     canvas.el = element
     canvas.ctx = element.getContext('2d')

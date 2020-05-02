@@ -1,17 +1,13 @@
 // Breakout bricks management
 
 const bricks = {
-  pattern: [
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 5, 4, 0, 0, 0, 0,
-    1, 2, 3, 2, 1, 1, 2, 3, 2, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  ],
+  pattern: null,
+  amountLeft: null,
 
   removeByIndex: i => {
     if (i < bricks.pattern.length) {
       bricks.pattern[i] = 0
+      bricks.amountLeft--
     }
   },
 
@@ -40,5 +36,12 @@ const bricks = {
     return i < bricks.pattern.length && bricks.pattern[i] !== 0
   },
 
-  noBrickAt: ({ col, row }) => !bricks.brickAt({ col, row })
+  noBrickAt: ({ col, row }) => !bricks.brickAt({ col, row }),
+
+  setLevel: n => {
+    bricks.pattern = config.bricks.levels[n].slice(0)
+    bricks.amountLeft = bricks.pattern.reduce((memo, e) =>
+      e === 0 ? memo : memo + 1
+    )
+  }
 }

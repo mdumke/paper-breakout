@@ -39,6 +39,7 @@ const ball = {
       ball.bounceOffCeiling()
     }
     if (ball.touchesPaddle()) {
+      game.ballTouchesPaddle()
       ball.bounceOffPaddle()
     }
     if (ball.touchesBrick()) {

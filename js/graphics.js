@@ -36,15 +36,33 @@ const graphics = {
       'gray', 12, 'monospace')
   },
 
-  drawGame: () => {
+  drawTitle: () => {
+    canvas.clear()
+    canvas.drawImage(images.title, 620, 420)
+    canvas.drawImage(images.controlsLeft, 493, 568)
+    canvas.drawImage(images.controlsRight, 627, 568)
+  },
+
+  drawWin: () => {
+    canvas.clear()
+    canvas.drawImage(images.congratulations, 620, 320)
+    canvas.drawText(
+      'You completed all levels :)', 550, 500, '#444', 20, 'monospace')
+  },
+
+  drawSpacebar: () => {
+    canvas.drawImage(images.spacebar, 620, 790)
+  },
+
+  drawLevelInfo: n => {
+    canvas.drawImage(images[`level${n}`], 620, 420)
+  },
+
+  drawLevel: () => {
     canvas.clear()
     graphics.drawBricks()
     graphics.drawPaddle()
     graphics.drawBall()
     graphics.drawCheats()
-  },
-
-  init: () => {
-    canvas.init()
   }
 }
