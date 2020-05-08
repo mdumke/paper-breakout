@@ -9,6 +9,9 @@ const images = {
     { name: 'level1', fileName: 'level1.png' },
     { name: 'level2', fileName: 'level2.png' },
     { name: 'level3', fileName: 'level3.png' },
+    { name: 'zero', fileName: 'zero.png' },
+    { name: 'one', fileName: 'one.png' },
+    { name: 'two', fileName: 'two.png' },
     { name: 'brick1', fileName: 'brick1.png' },
     { name: 'brick2', fileName: 'brick2.png' },
     { name: 'brick3', fileName: 'brick3.png' },
@@ -20,6 +23,7 @@ const images = {
     { name: 'title', fileName: 'title.png' },
     { name: 'background', fileName: 'background.png' },
     { name: 'congratulations', fileName: 'congratulations.png' },
+    { name: 'gameOver', fileName: 'game-over.png' }
   ],
 
   load: () => {

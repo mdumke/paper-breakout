@@ -50,6 +50,11 @@ const graphics = {
       'You completed all levels :)', 550, 500, '#444', 20, 'monospace')
   },
 
+  drawGameOver: () => {
+    canvas.clear()
+    canvas.drawImage(images.gameOver, 620, 320)
+  },
+
   drawSpacebar: () => {
     canvas.drawImage(images.spacebar, 620, 790)
   },
@@ -58,11 +63,17 @@ const graphics = {
     canvas.drawImage(images[`level${n}`], 620, 420)
   },
 
+  drawLives: () => {
+    const n = ['zero', 'one', 'two'][game.lives]
+    canvas.drawImage(images[n], 1150, 700)
+  },
+
   drawLevel: () => {
     canvas.clear()
     graphics.drawBricks()
     graphics.drawPaddle()
     graphics.drawBall()
     graphics.drawCheats()
+    graphics.drawLives()
   }
 }

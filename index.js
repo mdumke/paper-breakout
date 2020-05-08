@@ -9,6 +9,8 @@ const game = {
   animation: null,
   screen: null,
   level: null,
+  lives: null,
+  pauseBall: null,
 
   timing: {
     prevFrameTime: 0
@@ -20,19 +22,33 @@ const game = {
       game.runLevel()
     }
 
-    if (game.screen === 'win') {
+    if (game.screen === 'win' || game.screen === 'over') {
       game.level = null
       game.displayTitle()
     }
   },
 
+  over: () => {
+    game.stopAnimation()
+    setTimeout(() => game.displayOver(), 500)
+  },
+
   ballLost: () => {
+    if (game.lives === 0) {
+      return game.over()
+    }
+
+    game.lives--
+
     ball.reset(
       canvas.width / 2,
       canvas.height / 2,
       config.ball.initialSpeedX,
       config.ball.initialSpeedY
     )
+
+    game.pauseBall = true
+    setTimeout(() => game.pauseBall = false, 1000)
   },
 
   ballTouchesPaddle: () => {
@@ -68,6 +84,16 @@ const game = {
     }, 3000)
   },
 
+  displayOver: () => {
+    game.screen = 'over'
+    graphics.drawGameOver()
+    setTimeout(() => {
+      if (game.screen === 'over') {
+        graphics.drawSpacebar()
+      }
+    }, 3000)
+  },
+
   runLevel: () => {
     game.screen = `level${game.level}`
     bricks.setLevel(game.level)
@@ -86,7 +112,9 @@ const game = {
   },
 
   update: deltaT => {
-    ball.update(deltaT)
+    if (!game.pauseBall) {
+      ball.update(deltaT)
+    }
     paddle.update(deltaT)
   },
 
@@ -101,6 +129,7 @@ const game = {
   },
 
   reset: () => {
+    game.lives = config.maxLives - 1
     ball.reset(
       canvas.width / 2,
       canvas.height / 2,
