@@ -28,7 +28,7 @@ const ball = {
     return ball.isOnField() && brickExists
   },
 
-  update: deltaT => {
+  update: (deltaT, prevDeltaT) => {
     if (ball.x < field.getLeft()) {
       ball.bounceOffLeftWall()
     }
@@ -43,10 +43,10 @@ const ball = {
       ball.bounceOffPaddle()
     }
     if (ball.touchesBrick()) {
+      ball.bounceOffBrick(prevDeltaT)
       bricks.removeByPosition(ball)
-      ball.bounceOffBrick(deltaT)
     }
-    if (ball.y > canvas.height) {
+    if (ball.y > canvas.height + 20) {
       return game.ballLost()
     }
 
@@ -54,9 +54,10 @@ const ball = {
   },
 
   bounceOffBrick: prevDeltaT => {
+    bricks.playSoundByPosition(ball)
+
     const { col, row } = bricks.positionToColRow(ball)
     const previous = ball.getPreviousPosition(prevDeltaT)
-
     const colChange = previous.col !== col
     const rowChange = previous.row !== row
     const adjCol = { row, col: previous.col }
@@ -86,14 +87,17 @@ const ball = {
 
   bounceOffLeftWall: () => {
     ball.speedX = Math.abs(ball.speedX)
+    audio.play('wall')
   },
 
   bounceOffRightWall: () => {
     ball.speedX = -Math.abs(ball.speedX)
+    audio.play('wall')
   },
 
   bounceOffCeiling: () => {
     ball.speedY = Math.abs(ball.speedY)
+    audio.play('wall')
   },
 
   bounceOffPaddle: () => {

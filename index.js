@@ -13,7 +13,8 @@ const game = {
   pauseBall: null,
 
   timing: {
-    prevFrameTime: 0
+    prevFrameTime: 0,
+    prevDeltaT: 0
   },
 
   spacebarPressed: () => {
@@ -34,6 +35,8 @@ const game = {
   },
 
   ballLost: () => {
+    audio.play('ballLost')
+
     if (game.lives === 0) {
       return game.over()
     }
@@ -52,6 +55,8 @@ const game = {
   },
 
   ballTouchesPaddle: () => {
+    audio.play('paddle')
+
     if (bricks.amountLeft === 0) {
       game.stopAnimation()
       game.level++
@@ -66,6 +71,8 @@ const game = {
 
   displayTitle: () => {
     game.screen = 'title'
+    audio.play('title')
+    audio.pause('birds')
     graphics.drawTitle()
     setTimeout(() => {
       if (game.screen === 'title') {
@@ -76,6 +83,8 @@ const game = {
 
   displayWin: () => {
     game.screen = 'win'
+    audio.play('applause')
+    audio.pause('birds')
     graphics.drawWin()
     setTimeout(() => {
       if (game.screen === 'win') {
@@ -86,6 +95,8 @@ const game = {
 
   displayOver: () => {
     game.screen = 'over'
+    audio.play('over')
+    audio.pause('birds')
     graphics.drawGameOver()
     setTimeout(() => {
       if (game.screen === 'over') {
@@ -95,32 +106,47 @@ const game = {
   },
 
   runLevel: () => {
+    audio.play('birds')
+
+    if (game.level === 1) {
+      game.lives = config.maxLives - 1
+    }
+
     game.screen = `level${game.level}`
     bricks.setLevel(game.level)
     game.reset()
     graphics.drawLevel()
     graphics.drawLevelInfo(game.level)
-    setTimeout(graphics.drawLevel, 1500)
-    setTimeout(game.animate, 2000)
+    setTimeout(() => {
+      game.pauseBall = true
+      game.animate()
+      setTimeout(() => {
+        game.pauseBall = false
+      }, 500)
+    }, 1500)
   },
 
   getDeltaT: time => {
     const diff = time - game.timing.prevFrameTime
     const deltaT = isNaN(diff) ? 0 : diff
+    const prevDeltaT = game.timing.prevDeltaT
     game.timing.prevFrameTime = time
-    return deltaT
+    game.timing.prevDeltaT = deltaT
+    return [deltaT, prevDeltaT]
   },
 
-  update: deltaT => {
+  update: time => {
+    const [deltaT, prevDeltaT] = game.getDeltaT(time)
+
     if (!game.pauseBall) {
-      ball.update(deltaT)
+      ball.update(deltaT, prevDeltaT)
     }
     paddle.update(deltaT)
   },
 
   animate: time => {
     game.animation = requestAnimationFrame(game.animate)
-    game.update(game.getDeltaT(time))
+    game.update(time)
     graphics.drawLevel()
   },
 
@@ -129,7 +155,6 @@ const game = {
   },
 
   reset: () => {
-    game.lives = config.maxLives - 1
     ball.reset(
       canvas.width / 2,
       canvas.height / 2,
@@ -143,6 +168,7 @@ const game = {
     canvas.init()
     paddle.init()
     controls.init()
+    audio.init()
     await images.load()
   },
 

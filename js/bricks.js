@@ -5,7 +5,8 @@ const bricks = {
   amountLeft: null,
 
   removeByIndex: i => {
-    if (i < bricks.pattern.length) {
+    // bricks of type 2 are never deleted
+    if (i < bricks.pattern.length && bricks.pattern[i] !== 2) {
       bricks.pattern[i] = 0
       bricks.amountLeft--
     }
@@ -38,10 +39,29 @@ const bricks = {
 
   noBrickAt: ({ col, row }) => !bricks.brickAt({ col, row }),
 
+  playSoundByPosition: ({ x, y }) => {
+    const i = bricks.positionToIndex({ x, y })
+
+    if (i >= bricks.pattern.length) {
+      return
+    }
+
+    switch (bricks.pattern[i]) {
+    case 0:
+      break
+    case 1:
+      audio.playCelloKey()
+      break
+    case 2:
+      audio.playPianoKey()
+      break
+    }
+  },
+
   setLevel: n => {
     bricks.pattern = config.bricks.levels[n].slice(0)
     bricks.amountLeft = bricks.pattern.reduce((memo, e) =>
-      e === 0 ? memo : memo + 1
+      e === 0 || e === 2 ? memo : memo + 1
     )
   }
 }
