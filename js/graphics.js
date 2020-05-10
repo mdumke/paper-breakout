@@ -3,6 +3,10 @@
 const graphics = {
   levelInfo: null,
 
+  drawLoadingMessage: () => {
+    canvas.drawText('Loading...', 200, 200, '#444', 20, 'monospace')
+  },
+
   drawBall: () => {
     canvas.drawImage(images.ball, ball.x, ball.y, ball.angle)
   },

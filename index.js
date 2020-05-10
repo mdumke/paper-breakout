@@ -169,6 +169,7 @@ const game = {
     paddle.init()
     controls.init()
     audio.init()
+    graphics.drawLoadingMessage()
     await images.load()
   },
 
