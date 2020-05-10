@@ -19,11 +19,18 @@
       min-height: 95vh;
     }
     .canvas-wrapper {
-      background: url('assets/images/background.png');
       background-repeat: no-repeat;
     }
     #canvas {
       cursor: none;
+    }
+    .warning {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 14px;
+      font-family: Monospace;
+      color: white;
     }
   </style>
 </head>
@@ -33,7 +40,8 @@
   </div>
 
   <audio id="ball-lost" src="assets/audio/paper-sound.mp3"></audio>
-  <audio id="wall" src="assets/audio/piano-hit.mp3"></audio>
+  <audio id="knock1" src="assets/audio/knock1.mp3"></audio>
+  <audio id="knock2" src="assets/audio/knock2.mp3"></audio>
   <audio id="paddle" src="assets/audio/flip.mp3"></audio>
   <audio id="title" src="assets/audio/title.mp3"></audio>
   <audio id="over" src="assets/audio/over.mp3"></audio>
@@ -61,7 +69,28 @@
   <script src="js/controls.js"></script>
   <script src="index.js"></script>
   <script>
-    (() => game.main())()
+    (() => {
+      const windowTooSmall =
+        window.innerWidth < 1260 ||
+        window.innerHeight < 860
+
+      const displayWarning = () => {
+        const div = document.createElement('div')
+        div.className = 'warning'
+        div.innerHTML = 'Sorry, you need a larger screen to play the game :('
+        document.querySelector('body').append(div)
+      }
+
+      const displayBackground = () => document.querySelector('.canvas-wrapper')
+        .style.backgroundImage = "url('assets/images/background.png')"
+
+      if (windowTooSmall) {
+        displayWarning()
+      } else {
+        displayBackground()
+        game.main()
+      }
+    })()
   </script>
 </body>
 </html>
