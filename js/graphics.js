@@ -1,6 +1,8 @@
 // breakout graphics display management
 
 const graphics = {
+  levelInfo: null,
+
   drawBall: () => {
     canvas.drawImage(images.ball, ball.x, ball.y, ball.angle)
   },
@@ -46,8 +48,6 @@ const graphics = {
   drawWin: () => {
     canvas.clear()
     canvas.drawImage(images.congratulations, 620, 320)
-    canvas.drawText(
-      'You completed all levels :)', 550, 500, '#444', 20, 'monospace')
   },
 
   drawGameOver: () => {
@@ -63,6 +63,14 @@ const graphics = {
     canvas.drawImage(images[`level${n}`], 620, 420)
   },
 
+  showLevelInfo: n => {
+    graphics.levelInfo = n
+  },
+
+  hideLevelInfo: () => {
+    graphics.levelInfo = null
+  },
+
   drawLives: () => {
     const n = ['zero', 'one', 'two'][game.lives]
     canvas.drawImage(images[n], 1150, 700)
@@ -75,5 +83,8 @@ const graphics = {
     graphics.drawBall()
     graphics.drawCheats()
     graphics.drawLives()
+    if (graphics.levelInfo !== null) {
+      graphics.drawLevelInfo(graphics.levelInfo)
+    }
   }
 }

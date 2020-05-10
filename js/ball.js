@@ -87,17 +87,17 @@ const ball = {
 
   bounceOffLeftWall: () => {
     ball.speedX = Math.abs(ball.speedX)
-    audio.play('wall')
+    audio.playKnockSound()
   },
 
   bounceOffRightWall: () => {
     ball.speedX = -Math.abs(ball.speedX)
-    audio.play('wall')
+    audio.playKnockSound()
   },
 
   bounceOffCeiling: () => {
     ball.speedY = Math.abs(ball.speedY)
-    audio.play('wall')
+    audio.playKnockSound()
   },
 
   bounceOffPaddle: () => {

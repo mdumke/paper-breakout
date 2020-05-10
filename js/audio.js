@@ -4,6 +4,7 @@ const audio = {
   soundOn: true,
   prevCelloKey: -1,
   prevPianoKey: -1,
+  prevKnock: -1,
 
   init: () => {
     audio.sounds.birds.loop = true
@@ -21,6 +22,18 @@ const audio = {
     }
   },
 
+  playKnockSound: () => {
+    const sounds = [
+      'knock1',
+      'knock2'
+    ]
+
+    // play sounds round robin fashion
+    const i = (audio.prevKnock + 1) % sounds.length
+    audio.play(sounds[i])
+    audio.prevKnock = i
+  },
+
   playCelloKey: () => {
     const keys = [
       'cello1',
@@ -29,7 +42,7 @@ const audio = {
       'cello4',
     ]
 
-    // play keys round robin style
+    // play keys round robin fashion
     const key = (audio.prevCelloKey + 1) % keys.length
     audio.play(keys[key])
     audio.prevCelloKey = key
@@ -44,7 +57,7 @@ const audio = {
       'piano5'
     ]
 
-    // play keys round robin style
+    // play keys round robin fashion
     const key = (audio.prevPianoKey + 1) % keys.length
     audio.play(keys[key])
     audio.prevPianoKey = key
@@ -57,7 +70,8 @@ const audio = {
   sounds: {
     ballLost: document.querySelector('#ball-lost'),
     paddle: document.querySelector('#paddle'),
-    wall: document.querySelector('#wall'),
+    knock1: document.querySelector('#knock1'),
+    knock2: document.querySelector('#knock2'),
     title: document.querySelector('#title'),
     over: document.querySelector('#over'),
     applause: document.querySelector('#applause'),

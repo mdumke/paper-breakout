@@ -90,7 +90,7 @@ const game = {
       if (game.screen === 'win') {
         graphics.drawSpacebar()
       }
-    }, 3000)
+    }, 5000)
   },
 
   displayOver: () => {
@@ -102,7 +102,7 @@ const game = {
       if (game.screen === 'over') {
         graphics.drawSpacebar()
       }
-    }, 3000)
+    }, 5000)
   },
 
   runLevel: () => {
@@ -115,11 +115,11 @@ const game = {
     game.screen = `level${game.level}`
     bricks.setLevel(game.level)
     game.reset()
-    graphics.drawLevel()
-    graphics.drawLevelInfo(game.level)
+    graphics.showLevelInfo(game.level)
+    game.pauseBall = true
+    game.animate()
     setTimeout(() => {
-      game.pauseBall = true
-      game.animate()
+      graphics.hideLevelInfo()
       setTimeout(() => {
         game.pauseBall = false
       }, 500)
