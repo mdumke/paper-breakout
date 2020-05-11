@@ -86,13 +86,27 @@ const ball = {
   },
 
   bounceOffLeftWall: () => {
-    ball.speedX = Math.abs(ball.speedX)
     audio.playKnockSound()
+    ball.speedX = Math.abs(ball.speedX)
+
+    // if the ball get's behind a brick, reflect it
+    const { col, row } = bricks.positionToColRow(ball)
+
+    if (bricks.brickAt({ col: 0, row })) {
+      ball.speedY *= -1
+    }
   },
 
   bounceOffRightWall: () => {
-    ball.speedX = -Math.abs(ball.speedX)
     audio.playKnockSound()
+    ball.speedX = -Math.abs(ball.speedX)
+
+    // if the ball get's behind a brick, reflect it
+    const { col, row } = bricks.positionToColRow(ball)
+
+    if (bricks.brickAt({ col: col - 1, row })) {
+      ball.speedY *= -1
+    }
   },
 
   bounceOffCeiling: () => {
