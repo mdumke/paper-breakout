@@ -7,7 +7,7 @@ const audio = {
   prevKnock: -1,
 
   init: () => {
-    audio.sounds.birds.loop = true
+    audio.sounds.ambience.loop = true
   },
 
   play: name => {
@@ -75,7 +75,7 @@ const audio = {
     title: document.querySelector('#title'),
     over: document.querySelector('#over'),
     applause: document.querySelector('#applause'),
-    birds: document.querySelector('#birds'),
+    ambience: document.querySelector('#ambience'),
     piano1: document.querySelector('#piano1'),
     piano2: document.querySelector('#piano2'),
     piano3: document.querySelector('#piano3'),
