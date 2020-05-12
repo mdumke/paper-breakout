@@ -37,11 +37,6 @@ const graphics = {
     }
   },
 
-  drawCheats: () => {
-    canvas.drawText(`${cheats.x},${cheats.y}`, 10, 10,
-      'gray', 12, 'monospace')
-  },
-
   drawTitle: () => {
     canvas.clear()
     canvas.drawImage(images.title, 620, 420)
@@ -85,7 +80,6 @@ const graphics = {
     graphics.drawBricks()
     graphics.drawPaddle()
     graphics.drawBall()
-    graphics.drawCheats()
     graphics.drawLives()
     if (graphics.levelInfo !== null) {
       graphics.drawLevelInfo(graphics.levelInfo)

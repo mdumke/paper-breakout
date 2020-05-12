@@ -1,10 +1,5 @@
 // Breakout central game logic
 
-const cheats = {
-  x: 0,
-  y: 0
-}
-
 const game = {
   animation: null,
   screen: null,
