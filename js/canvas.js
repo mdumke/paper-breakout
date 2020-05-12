@@ -32,11 +32,6 @@ const canvas = {
     canvas.ctx.globalAlpha = 1.0
   },
 
-//   setBackgroundImage: img => {
-//     const url = `url('assets/images/${img.fileName}')`
-//     canvas.wrapper.style.backgroundImage = url
-//   },
-
   init: () => {
     canvas.wrapper = document.querySelector('.canvas-wrapper')
     const element = document.querySelector('#canvas')
