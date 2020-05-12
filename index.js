@@ -67,6 +67,7 @@ const game = {
   displayTitle: () => {
     game.screen = 'title'
     audio.play('title')
+    audio.pause('ambience')
     graphics.drawTitle()
     setTimeout(() => {
       if (game.screen === 'title') {
@@ -78,6 +79,7 @@ const game = {
   displayWin: () => {
     game.screen = 'win'
     audio.play('applause')
+    audio.pause('ambience')
     graphics.drawWin()
     setTimeout(() => {
       if (game.screen === 'win') {
@@ -89,6 +91,7 @@ const game = {
   displayOver: () => {
     game.screen = 'over'
     audio.play('over')
+    audio.pause('ambience')
     graphics.drawGameOver()
     setTimeout(() => {
       if (game.screen === 'over') {
@@ -98,6 +101,8 @@ const game = {
   },
 
   runLevel: () => {
+    audio.play('ambience')
+
     if (game.level === 1) {
       game.lives = config.maxLives - 1
     }
@@ -158,6 +163,7 @@ const game = {
     canvas.init()
     paddle.init()
     controls.init()
+    audio.init()
     graphics.drawLoadingMessage()
     await images.load()
   },
