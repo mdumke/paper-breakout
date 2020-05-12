@@ -6,10 +6,6 @@ const audio = {
   prevPianoKey: -1,
   prevKnock: -1,
 
-  init: () => {
-    audio.sounds.ambience.loop = true
-  },
-
   play: name => {
     if (!audio.sounds[name]) {
       return console.log(`${name} not found`)
@@ -75,7 +71,6 @@ const audio = {
     title: document.querySelector('#title'),
     over: document.querySelector('#over'),
     applause: document.querySelector('#applause'),
-    ambience: document.querySelector('#ambience'),
     piano1: document.querySelector('#piano1'),
     piano2: document.querySelector('#piano2'),
     piano3: document.querySelector('#piano3'),
