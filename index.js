@@ -30,6 +30,10 @@ const game = {
   },
 
   ballLost: () => {
+    if (bricks.amountLeft === 0) {
+      return game.levelCompleted()
+    }
+
     audio.play('ballLost')
 
     if (game.lives === 0) {
@@ -49,18 +53,22 @@ const game = {
     setTimeout(() => game.pauseBall = false, 1000)
   },
 
+  levelCompleted: () => {
+    game.stopAnimation()
+    game.level++
+
+    if (game.level > config.bricks.nLevels) {
+      setTimeout(() => game.displayWin(), 1000)
+    } else {
+      setTimeout(() => game.runLevel(), 1000)
+    }
+  },
+
   ballTouchesPaddle: () => {
     audio.play('paddle')
 
     if (bricks.amountLeft === 0) {
-      game.stopAnimation()
-      game.level++
-
-      if (game.level > config.bricks.nLevels) {
-        setTimeout(() => game.displayWin(), 1000)
-      } else {
-        setTimeout(() => game.runLevel(), 1000)
-      }
+      game.levelCompleted()
     }
   },
 
