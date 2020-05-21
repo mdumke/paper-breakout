@@ -65,17 +65,17 @@ const ball = {
 
     if (colChange && bricks.noBrickAt(adjCol)) {
       ball.speedX *= -1
-    }
-
-    if (rowChange && bricks.noBrickAt(adjRow)) {
+    } else if (rowChange && bricks.noBrickAt(adjRow)) {
       ball.speedY *= -1
-    }
-
-    if (colChange && rowChange &&
+    } else if (colChange && rowChange &&
         bricks.brickAt(adjRow) && bricks.brickAt(adjCol)) {
       ball.speedX *= -1
       ball.speedY *= -1
     }
+
+    // add a tiny bit of randomness to avoid getting stuck
+    ball.speedX += (Math.random() - 0.5) * 0.001
+    ball.speedY += (Math.random() - 0.5) * 0.001
   },
 
   getPreviousPosition: prevDeltaT => {
