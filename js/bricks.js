@@ -62,6 +62,6 @@ const bricks = {
     bricks.pattern = config.bricks.levels[n].slice(0)
     bricks.amountLeft = bricks.pattern.reduce((memo, e) =>
       e === 0 || e === 2 ? memo : memo + 1
-    )
+    , 0)
   }
 }
