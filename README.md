@@ -1,6 +1,6 @@
 # Breakout
 
-Another adaptation of the arcade game.
+Another adaptation of the arcade game. [Try it](https://mdumke.github.io/paper-breakout/).
 
 
 ## Credits
